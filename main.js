@@ -1,35 +1,66 @@
-const keys = document.querySelectorAll(".key"),
-  note = document.querySelector(".nowplaying"),
-  hints = document.querySelectorAll(".hints");
+  function playChords(chord){
+    const c = document.querySelector('audio[data-key="65"]');
+    const e = document.querySelector('audio[data-key="83"]');
+    const b = document.querySelector('audio[data-key="74"]');
 
-function playNote(e) {
-  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`),
-    key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    const eb = document.querySelector('audio[data-key="69"]');
+    const bb = document.querySelector('audio[data-key="85"]');
 
-  if (!key) return;
+    const dH = document.querySelector('audio[data-key="80"]');
 
-  const keyNote = key.getAttribute("data-note");
+    function removeTransition(e) {
+      this.classList.remove("playing");
+    }
 
-  key.classList.add("playing");
-  note.innerHTML = keyNote;
-  audio.currentTime = 0;
-  audio.play();
-}
+    let keys = []
 
-function removeTransition(e) {
-  if (e.propertyName !== "transform") return;
-  this.classList.remove("playing");
-}
+    let lightKeys = function(keys) {
+        keys.forEach(key => {
+          let whichKey = document.querySelector('[data-note='+key+']')
+          whichKey.classList.add('playing')
+          whichKey.addEventListener("transitionend", removeTransition);
+      })
+    }
 
-function hintsOn(e, index) {
-  e.setAttribute("style", "transition-delay:" + index * 50 + "ms");
-}
+    const cma7 = function() {
+      c.play()
+      e.play()
+      b.play()
+    }
 
-hints.forEach(hintsOn);
+    const cm7 = function() {
+      c.play()
+      eb.play()
+      bb.play()
+    }
 
-keys.forEach(key => key.addEventListener("transitionend", removeTransition));
+    const c7 = function() {
+      c.play()
+      e.play()
+      bb.play()
+    }
 
-window.addEventListener("keydown", playNote);  
+    const c7H9 = function() {
+      c.play()
+      e.play()
+      bb.play()
+      dH.play()
+    }
+
+    if (chord == 'cma7') {
+      cma7()
+      lightKeys(['C','E','B'])
+    } else if (chord == 'cm7') {
+      cm7()
+      lightKeys(['C','Dsharp','Asharp'])
+    } else if (chord == 'c7') {
+      c7()
+      lightKeys(['C','E','Asharp'])
+    } else if (chord == 'c7H9') {
+      c7H9()
+      lightKeys(['C','E','B','Dsharp2'])
+    }
+  }
 
 const { Path, Point } = paper;
 

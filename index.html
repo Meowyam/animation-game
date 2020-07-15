@@ -1,14 +1,13 @@
 <html>
   <head>
     <link rel="stylesheet" href="style.css"/>
-
   </head>
   <body>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.11.4/paper-full.min.js"></script>
     <script type="text/paperscript" canvas="myCanvas">
       var primaryColor            = '#cf034a';
-        var secondaryColor          = '#231f20';
+      var secondaryColor          = '#231f20';
 
         const stave = new Path(stave); 
 
@@ -38,65 +37,16 @@
       aDodecagon.fillColor = '#CCAAFC';
       aDodecagon.selected = true;
     </script>
-
-    <script type="text/javascript">
-      function playChords(chord){
-        const canvas = document.getElementById('myCanvasK')
-        const ctx = canvas.getContext('2d')
-
-        const c = document.querySelector('audio[data-key="65"]');
-        const e = document.querySelector('audio[data-key="83"]');
-        const b = document.querySelector('audio[data-key="74"]');
-
-        const eb = document.querySelector('audio[data-key="69"]');
-        const bb = document.querySelector('audio[data-key="85"]');
-
-        let blueKey = function(k) {
-          document.querySelector('[data-note='+k+']').classList.add('playing')
-        }
-
-        const cma7 = function() {
-          c.play()
-          e.play()
-          b.play()
-        }
-
-        const cm7 = function() {
-          c.play()
-          eb.play()
-          bb.play()
-        }
-
-        const c7 = function() {
-          c.play()
-          e.play()
-          bb.play()
-        }
-        
-        if (chord == 'cma7') {
-          cma7()
-          blueKey('C')
-          blueKey('E')
-          blueKey('B')
-        } else if (chord == 'cm7') {
-          cm7()
-          blueKey('C')
-          blueKey('Dsharp')
-          blueKey('Asharp')
-        } else if (chord == 'c7') {
-          c7()
-          blueKey('C')
-          blueKey('E')
-          blueKey('Asharp')
-        }
-      }
-    </script>
-
-
-    <canvas id="myCanvas" resize></canvas>
+    
+    <canvas id="myCanvas"></canvas>
+    <canvas class="squig" resize></canvas>
+      <h3>
+        Easy Jazz Chords
+      </h3>
       <button onClick="playChords('cma7')">Major 7</button>
       <button onClick="playChords('cm7')">Minor 7</button>
-    <canvas class="squig" resize></canvas>
+      <button onClick="playChords('c7')">Dominant 7</button>
+      <button onClick="playChords('c7H9')">Dominant 7 with sharp 9</button>
     <section id="wrap">
       <section id="main">
         <div class="nowplaying"></div>
@@ -137,19 +87,19 @@
           <canvas id="myCanvasK" data-key="74" class="key" data-note="B">
             <span class="hints">J</span>
           </canvas>
-          <canvas id="myCanvasK" data-key="75" class="key" data-note="C">
+          <canvas id="myCanvasK" data-key="75" class="key" data-note="C2">
             <span class="hints">K</span>
           </canvas>
-          <canvas id="myCanvasK" data-key="79" class="key sharp" data-note="Csharp">
+          <canvas id="myCanvasK" data-key="79" class="key sharp" data-note="Csharp2">
             <span class="hints">O</span>
           </canvas >
-          <canvas id="myCanvasK" data-key="76" class="key" data-note="D">
+          <canvas id="myCanvasK" data-key="76" class="key" data-note="D2">
             <span class="hints">L</span>
           </canvas>
-          <canvas id="myCanvasK" data-key="80" class="key sharp" data-note="Dsharp">
+          <canvas id="myCanvasK" data-key="80" class="key sharp" data-note="Dsharp2">
             <span class="hints">P</span>
           </canvas>
-          <canvas id="myCanvasK" data-key="186" class="key" data-note="E">
+          <canvas id="myCanvasK" data-key="186" class="key" data-note="E2">
             <span class="hints">;</span>
           </canvas>
         </div>
@@ -173,7 +123,8 @@
         <audio data-key="186" src="http://carolinegabriel.com/demo/js-keyboard/sounds/056.wav"></audio>
       </section>
     </section>
-
+    
     <script src="main.js"></script>
+
   </body>
 </html>
